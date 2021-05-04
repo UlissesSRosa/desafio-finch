@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>T-Shirts - A sua melhor escolha</title>
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="statics/css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+					class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#!">
+							Home
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" target="_blank"
+							href="https://github.com/UlissesSRosa">Projetos</a></li>
+					<li class="nav-item"><a class="nav-link" target="_blank"
+							href="https://www.linkedin.com/in/ulisses-rosa/">Contato</a></li>
+					<li <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+						<img width="25px" heigth="25px" th:src="@{/icons/carrinho.png}" /></button>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Page Content-->
+	<div class="container">
+		<!-- Heading Row-->
+		<div class="row align-items-center my-5">
+			<div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" ; th:src="@{/img/vitrine.jpg}"
+					alt="..." /></div>
+			<div class="col-lg-5">
+				<h1 class="font-weight-light">T-Shirts</h1>
+				<p>A sua loja especializada em peças da mais estilosa camada da moda!!!</p>
+			</div>
+		</div>
+		<!-- Call to Action-->
+		<div class="card text-white bg-secondary my-5 py-4 text-center">
+			<div class="card-body">
+				<p class="text-white m-0">Confira já nossas mais recentes ofertas em camisetas, vestidos, calças e muito
+					mais!!!</p>
+			</div>
+		</div>
+		<!-- Content Row-->
+		<div class="row">
+			<div class="col-md-4 mb-5" ; th:each="product : ${products}">
+				<div class="card h-30">
+					<form id="add" th:action="@{/products/addToCart/1/{idproduct}(idproduct=${product.id})}" method="post" th:object="${product}">
+						<div class="card-body">
+							<h2 class="card-title" ; th:text="${product.name}"></h2>
+							<img class="img-fluid rounded mb-4 mb-lg-0" th:src="@{${product.img}}" alt="..." />
+							<h5 th:text="${product.type}"></h5>
+							<h3 th:text="${'R$ ' + #numbers.formatDecimal(product.price, 0, 'POINT', 2, 'COMMA',)}">
+							</h3>
+						</div>
+						<div class="card-footer"><button type="submit" value="save">Adicionar ao Carrinho</button></div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Carrinho de Compras</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-4 mb-5">
+								<table  class="table">
+									<tr align="center" class="d-flex">
+										<td class="col-3">Id</td>
+										<td class="col-6">Nome</td>
+										<td class="col-6">Tipo de Peça</td>
+										<td class="col-3">Preço</td>
+									</tr>
+									<tr th:each="cart : ${shoppingCart}"; align="center" class="d-flex">
+										<td th:text="${cart.id}" class="col-3"></td>
+										<td th:text="${cart.name}" class="col-6"></td>
+										<td th:text="${cart.type}" class="col-6"></td>
+										<td th:text="${cart.price}" class="col-3"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Footer-->
+		<footer class="py-5 bg-dark">
+			<div class="container">
+				<p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+			</div>
+		</footer>
+		<!-- Bootstrap core JS-->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- Core theme JS-->
+		<script src="js/scripts.js"></script>
+		
+</html>
