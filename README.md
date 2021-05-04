@@ -20,6 +20,10 @@ Para startar o projeto:
 2) Rodar o arquivo insert.sql encontrado no diretório da aplicação
 ```
 ---
+
+3) Acesse o http://localhost:8080/products para visualizar a página.
+
+
 ## Links
 [GitHub](https://github.com/UlissesSRosa/desafio-finch) - GitHub do projeto  
 
